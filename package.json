@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "nodemon back-end/boop.ts"
+    "devStart": "nodemon back-end/boop.ts",
+    "serverStart": "nodemon back-end/app.js"
   },
   "author": "Mizakson",
   "license": "ISC",
