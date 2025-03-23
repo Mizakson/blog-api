@@ -9,11 +9,13 @@ const jwt = require("jsonwebtoken")
 // passport.use(jwtStrategy)
 
 // routes here
+const usersRouter = require("../back-end/routes/users")
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // router use statements here
+app.use("/users", usersRouter)
 
 app.get("/", (req, res) => {
     res.status(200).send({
