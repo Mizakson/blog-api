@@ -6,11 +6,11 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const indexRouter = require("../back-end/routes/indexRouter")
-
-app.use("/", indexRouter)
-// app.use("/sign-up", signUpRouter)
-// app.use("login", loginRouter)
+app.get("/", (req, res) => {
+    res.status(200).send({
+        message: "API HOMEPAGE..."
+    })
+})
 
 const PORT = 3000
 app.listen(PORT, "0.0.0.0", () => {
