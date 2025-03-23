@@ -3,8 +3,17 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const app = express()
 
+const jwt = require("jsonwebtoken")
+// const passport = require("passport")
+// const jwtStrategy = require("./config/auth")
+// passport.use(jwtStrategy)
+
+// routes here
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+// router use statements here
 
 app.get("/", (req, res) => {
     res.status(200).send({
