@@ -14,12 +14,13 @@ datasource db {
 }
 
 model User {
-  id      String    @id @default(uuid())
-  name    String?
-  email   String    @unique
-  role    Role      @default(BASIC)
-  Post    Post[]
-  Comment Comment[]
+  id       String    @id @default(uuid())
+  name     String?
+  email    String    @unique
+  password String
+  role     Role      @default(BASIC)
+  Post     Post[]
+  Comment  Comment[]
 
   // change col name in db
   @@map("users")
