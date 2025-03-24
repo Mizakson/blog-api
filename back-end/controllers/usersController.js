@@ -22,7 +22,12 @@ exports.createUser = async function (req, res) {
     try {
         const { username, email, password, role } = req.body
         const hashedPw = await bcrypt.hash(password, 10)
-        const newUser = queries.createUser(req.body)
+        const newUser = queries.createUser({
+            name: username,
+            email: email,
+            password: hashedPw,
+            role: role
+        })
     } catch (error) {
         console.error("An error occured while creating a user", error)
         res.status(500).json({
