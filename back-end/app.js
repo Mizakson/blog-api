@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 const bodyParser = require("body-parser")
+const path = require("path")
 const app = express()
 
 const jwt = require("jsonwebtoken")
@@ -11,6 +12,7 @@ const jwt = require("jsonwebtoken")
 // routes here
 const usersRouter = require("../back-end/routes/users")
 
+app.use(express.static(path.join("/home/mizakson/repos/blog-api/", "front-end/html")))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
