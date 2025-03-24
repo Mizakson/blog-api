@@ -1,4 +1,5 @@
 const queries = require("../utils/queries")
+const bcrypt = require("bcryptjs")
 
 exports.signUpGet = async function (req, res) {
     res.status(200).json({
