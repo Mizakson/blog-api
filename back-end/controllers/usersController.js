@@ -41,26 +41,21 @@ exports.createUser = async function (req, res) {
 }
 
 exports.loginUser = async function (req, res) {
-    let { email, password } = req.body
-    const emailLookup = await queries.getUserByEmail(email)
 
-    if (!emailLookup) {
-        res.status(400).json({ message: "User not found" })
+    const user = {
+        name: "john doe",
+        email: "jdoe@mail.com",
+        password: await bcrypt.hash("test123", 10),
+        role: "BASIC"
     }
 
-    if (emailLookup) {
-        const match = bcrypt.compare(password, emailLookup.password)
-        if (match) {
-            const opts = {}
-            opts.expiresIn = 120 // token expires in 2 min
-            const secret = process.env.JWT_SECRET_KEY
-            const token = jwt.sign({ email }, secret, opts)
-            return res.status(200).json({
-                message: "Auth success",
-                token
-            })
-        }
-    }
+    jwt.sign({ user }, process.env.JWT_SECRET_KEY, (err, token) => {
+        res.status(200).json({
+            message: "Auth success",
+            token,
+        })
+    })
 
-    return res.status(401).json({ message: "Auth failed" })
+    // res.status(401).json({ message: "Auth failed" })
+
 }
