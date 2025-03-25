@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken")
 
 // routes here
 const usersRouter = require("../back-end/routes/users")
+const postsRouter = require("./routes/posts")
 
 app.use(express.static(path.join("/home/mizakson/repos/blog-api/", "front-end/html")))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -18,6 +19,7 @@ app.use(bodyParser.json())
 
 // router use statements here
 app.use("/users", usersRouter)
+app.use("/posts", postsRouter)
 
 app.get("/", (req, res) => {
     res.status(200).send({
