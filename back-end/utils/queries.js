@@ -10,7 +10,7 @@ exports.createUser = async function (userData) {
 
 // email is unique along with id
 exports.getUserByEmail = async function (email) {
-    return await prisma.user.findUnique({
+    return await prisma.user.findFirst({
         where: {
             email: email
         }

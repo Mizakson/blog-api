@@ -1,5 +1,4 @@
 require("dotenv").config()
-const { Prisma } = require("@prisma/client")
 const queries = require("../utils/queries")
 const bcrypt = require("bcryptjs")
 const { validationResult, body } = require("express-validator")
@@ -42,20 +41,35 @@ exports.createUser = async function (req, res) {
 
 exports.loginUser = async function (req, res) {
 
-    const user = {
-        name: "john doe",
-        email: "jdoe@mail.com",
-        password: await bcrypt.hash("test123", 10),
-        role: "BASIC"
+    const { email, password } = req.body
+
+    try {
+
+        // will check if password matches using bcrypt compare
+
+        const user = await queries.getUserByEmail(email)
+
+        if (user) {
+            match = await bcrypt.compare(password, user.password)
+
+            if (match) {
+                jwt.sign({ user }, process.env.JWT_SECRET_KEY, (err, token) => {
+                    res.status(200).json({
+                        message: "Auth success",
+                        token,
+                    })
+                })
+            } else {
+                res.json({
+                    message: "Incorrect password"
+                })
+            }
+        }
+
+    } catch (err) {
+        console.error(err, err.message)
+        res.status(401).json({ message: "Auth failed" })
     }
 
-    jwt.sign({ user }, process.env.JWT_SECRET_KEY, (err, token) => {
-        res.status(200).json({
-            message: "Auth success",
-            token,
-        })
-    })
-
-    // res.status(401).json({ message: "Auth failed" })
 
 }
