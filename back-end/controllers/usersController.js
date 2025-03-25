@@ -1,6 +1,9 @@
+require("dotenv").config()
+const { Prisma } = require("@prisma/client")
 const queries = require("../utils/queries")
 const bcrypt = require("bcryptjs")
 const { validationResult, body } = require("express-validator")
+const jwt = require("jsonwebtoken")
 
 exports.validateUser = [
     body("username").isAlpha().notEmpty().withMessage("Please enter a username"),
@@ -35,4 +38,29 @@ exports.createUser = async function (req, res) {
             error: error.message
         })
     }
+}
+
+exports.loginUser = async function (req, res) {
+    let { email, password } = req.body
+    const emailLookup = await queries.getUserByEmail(email)
+
+    if (!emailLookup) {
+        res.status(400).json({ message: "User not found" })
+    }
+
+    if (emailLookup) {
+        const match = bcrypt.compare(password, emailLookup.password)
+        if (match) {
+            const opts = {}
+            opts.expiresIn = 120 // token expires in 2 min
+            const secret = process.env.JWT_SECRET_KEY
+            const token = jwt.sign({ email }, secret, opts)
+            return res.status(200).json({
+                message: "Auth success",
+                token
+            })
+        }
+    }
+
+    return res.status(401).json({ message: "Auth failed" })
 }
