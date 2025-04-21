@@ -1,0 +1,21 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "Odin Project NodeJS Course Project #6",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w server & npm run dev -w client",
+    "build": "concurrently \"npm run build -w server\" \"npm run build -w client\"",
+    "start": "npm start -w server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
