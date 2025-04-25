@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import './index.css'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function App() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/hello')
+    fetch(`${API_URL}/hello`)
       .then(res => res.json())
       .then(data => setMessage(data.message))
   }, [])
