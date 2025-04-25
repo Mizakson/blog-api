@@ -1,8 +1,12 @@
 const { Router } = require("express")
-const apiRouter = Router()
+const api = Router()
 
-apiRouter.get("/hello", (req, res) => {
-    res.json({ message: "hi from apiRouter..." })
-})
+const loginRouter = require("./login")
+const signUpRouter = require("./signup")
+const postRouter = require("./post")
 
-module.exports = apiRouter
+api.use("/login", loginRouter)
+api.use("/sign-up", signUpRouter)
+api.use("/posts", postRouter)
+
+module.exports = api
