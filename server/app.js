@@ -8,8 +8,11 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get("/api/hello", (req, res) => {
-    res.json({ message: "hi from the server" })
+const apiRouter = require("./routes/index")
+
+app.use("/api", apiRouter)
+app.use("/", (err, req, res, next) => {
+    if (err) return res.status(500).json({ success: false, message: "Internal server error" })
 })
 
 app.listen(process.env.PORT || 3000, () => {
