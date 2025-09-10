@@ -1,7 +1,7 @@
 const { Router } = require("express")
 const router = Router({ mergeParams: true })
 
-const commentRouter = require("./comment")
+const commentRouter = require("./comments")
 const postController = require("../controllers")
 const { jwtAuth, checkRole } = require("../auth/middleware")
 

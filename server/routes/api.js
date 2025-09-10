@@ -3,7 +3,7 @@ const api = Router()
 
 const loginRouter = require("./login")
 const signUpRouter = require("./signup")
-const postRouter = require("./post")
+const postRouter = require("./posts")
 
 api.use("/login", loginRouter)
 api.use("/sign-up", signUpRouter)
