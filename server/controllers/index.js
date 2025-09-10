@@ -1,7 +1,7 @@
-const commentController = require("./comment")
+const commentController = require("./comments")
 const signUpController = require("./signup")
 const loginController = require("./login")
-const postController = require("./post")
+const postController = require("./posts")
 
 module.exports = {
     ...loginController,
