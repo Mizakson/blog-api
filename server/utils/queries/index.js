@@ -1,6 +1,6 @@
-const userQueries = require("./user")
-const postQueries = require("./post")
-const commentQueries = require("./comment")
+const userQueries = require("./users")
+const postQueries = require("./posts")
+const commentQueries = require("./comments")
 
 // add all queries into one obj
 module.exports = {
